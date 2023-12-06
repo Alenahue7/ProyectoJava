@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "file_exclude_patterns": ["*.sublime-*"]
+    }
+  ],
+  "settings": {
+    "LiveReload": {
+      "enabled": true,
+      "apply_js_live": true
+    }
+  }
+}
+  
