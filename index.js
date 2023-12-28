@@ -1,90 +1,71 @@
-	//Segunda preentrega. Alejandro Nahuel Garcia
-	
-  <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora</title>
-</head>
-<body>
-  <script>
-    // Declaro un objeto para manejar la calculadora
-    let calculadora = {
-      numero1: 0,
-      numero2: 0,
-      operacion: "",
-      resultado: 0,
-
-      // Este es el método para realizar operaciones matemáticas
-      calcularOperacion: function() {
-        switch (this.operacion) {
-          case 'suma':
-            return this.numero1 + this.numero2;
-          case 'resta':
-            return this.numero1 - this.numero2;
-          case 'multiplicacion':
-            return this.numero1 * this.numero2;
-          case 'division':
-            return this.numero1 / this.numero2;
-          default:
-            return 'Operación no válida';
-        }
-      },
-
-      // Este es el metodo para solicitar números al usuario
-      pedirNumeros: function() {
-        this.numero1 = this.obtenerNumero("Ingrese el primer número:");
-        this.numero2 = this.obtenerNumero("Ingrese el segundo número:");
-      },
-
-      // Este es el metodo para solicitar la operación al usuario
-      pedirOperacion: function() {
-        this.operacion = prompt("Elija una operación: suma, resta, multiplicacion, division");
-      },
-
-      // Este es el metodo para mostrar el resultado en un alert y en la consola
-      mostrarResultado: function() {
-        alert("El resultado de la " + this.operacion + " es: " + this.resultado);
-        console.log("Número 1: " + this.numero1);
-        console.log("Número 2: " + this.numero2);
-        console.log("Operación: " + this.operacion);
-        console.log("Resultado: " + this.resultado);
-      },
-
-      // Este es el metodo para validar y obtener un número del usuario
-      obtenerNumero: function(mensaje) {
-        let input;
-        do {
-          input = prompt(mensaje);
-        } while (!this.esNumeroValido(input));
-        return parseFloat(input);
-      },
-
-      // Función para validar si es un número válido
-      esNumeroValido: function(valor) {
-        return !isNaN(parseFloat(valor)) && isFinite(valor);
-      }
-    };
-
-    // Solicito al usuario que ingrese números y elija una operación
-    calculadora.pedirNumeros();
-    calculadora.pedirOperacion();
-
-    // Validación de la operación ingresada
-    if (['suma', 'resta', 'multiplicacion', 'division'].includes(calculadora.operacion)) {
-      // Ahora calculo el resultado utilizando el método de la calculadora
-      calculadora.resultado = calculadora.calcularOperacion();
-
-      // Aqui muestro el resultado utilizando el método de la calculadora
-      calculadora.mostrarResultado();
-    } else {
-      // Si la operación no es válida, se debe mostrar un mensaje de error
-      alert("Operación no válida. Por favor, elija una operación válida.");
-    }
-  </script>
-</body>
-</html>
+	//   Segunda preentrega. Alejandro Nahuel Garcia
+  //   Archivo JS
 
 
+// Esta es la función de orden superior para las operaciones
+function realizarOperacion(operacion, num1, num2) {
+  switch (operacion) {
+    case 'suma':
+      return num1 + num2;
+    case 'resta':
+      return num1 - num2;
+    case 'multiplicacion':
+      return num1 * num2;
+    case 'division':
+      return num1 / num2;
+    default:
+      return 'Operación no válida';
+  }
+}
+
+// Esta es la función de orden superior para interactuar con el array
+function operacionConArray(array, operacion) {
+  
+  return array.map((element) => realizarOperacion(operacion, element, 2));
+}
+
+// Esta es la función principal
+function main() {
+  let numero1 = obtenerNumero("Ingrese el primer número:");
+  let numero2 = obtenerNumero("Ingrese el segundo número:");
+  let operacion = prompt("Elija una operación: suma, resta, multiplicacion, division");
+
+  if (['suma', 'resta', 'multiplicacion', 'division'].includes(operacion)) {
+    let resultado = realizarOperacion(operacion, numero1, numero2);
+    mostrarResultado(numero1, numero2, operacion, resultado);
+    
+    // Este es un ejemplo de uso de la función de orden superior con un array
+    let arrayEjemplo = [1, 2, 3, 4, 5];
+    let resultadoArray = operacionConArray(arrayEjemplo, operacion);
+    console.log(`Resultado de operación con array: ${resultadoArray}`);
+  } else {
+    alert("Operación no válida. Por favor, elija una operación válida.");
+  }
+}
+
+// Función para validar y obtener un número del usuario
+function obtenerNumero(mensaje) {
+  let input;
+  do {
+    input = prompt(mensaje);
+  } while (!esNumeroValido(input));
+  return parseFloat(input);
+}
+
+// Función para mostrar el resultado en un alert y en la consola
+function mostrarResultado(num1, num2, operacion, resultado) {
+  alert("El resultado de la " + operacion + " es: " + resultado);
+  console.log("Número 1: " + num1);
+  console.log("Número 2: " + num2);
+  console.log("Operación: " + operacion);
+  console.log("Resultado: " + resultado);
+}
+
+// Función para validar si es un número válido
+function esNumeroValido(valor) {
+  return !isNaN(parseFloat(valor)) && isFinite(valor);
+}
+
+// Llamo a la función principal
+main();
 
