@@ -1,8 +1,8 @@
-	//   Segunda preentrega. Alejandro Nahuel Garcia
+	//   Tercera preentrega. Alejandro Nahuel Garcia
   //   Archivo JS
+  
 
 
-// Esta es la función de orden superior para las operaciones
 function realizarOperacion(operacion, num1, num2) {
   switch (operacion) {
     case 'suma':
@@ -24,17 +24,20 @@ function operacionConArray(array, operacion) {
   return array.map((element) => realizarOperacion(operacion, element, 2));
 }
 
-// Esta es la función principal
 function main() {
-  let numero1 = obtenerNumero("Ingrese el primer número:");
-  let numero2 = obtenerNumero("Ingrese el segundo número:");
-  let operacion = prompt("Elija una operación: suma, resta, multiplicacion, division");
-
+  let numero1Input = document.getElementById("numero1");
+  let numero2Input = document.getElementById("numero2");
+  let operacionSelect = document.getElementById("operacion");
+  let resultadoContainer = document.getElementById("resultado");
+  
+  let numero1 = parseFloat(numero1Input.value);
+  let numero2 = parseFloat(numero2Input.value);
+  let operacion = operacionSelect.value;
+  
   if (['suma', 'resta', 'multiplicacion', 'division'].includes(operacion)) {
     let resultado = realizarOperacion(operacion, numero1, numero2);
     mostrarResultado(numero1, numero2, operacion, resultado);
-    
-    // Este es un ejemplo de uso de la función de orden superior con un array
+
     let arrayEjemplo = [1, 2, 3, 4, 5];
     let resultadoArray = operacionConArray(arrayEjemplo, operacion);
     console.log(`Resultado de operación con array: ${resultadoArray}`);
@@ -43,29 +46,18 @@ function main() {
   }
 }
 
-// Función para validar y obtener un número del usuario
-function obtenerNumero(mensaje) {
-  let input;
-  do {
-    input = prompt(mensaje);
-  } while (!esNumeroValido(input));
-  return parseFloat(input);
-}
-
-// Función para mostrar el resultado en un alert y en la consola
 function mostrarResultado(num1, num2, operacion, resultado) {
-  alert("El resultado de la " + operacion + " es: " + resultado);
+  resultadoContainer.innerHTML = `El resultado de la ${operacion} es: ${resultado}`;
   console.log("Número 1: " + num1);
   console.log("Número 2: " + num2);
   console.log("Operación: " + operacion);
   console.log("Resultado: " + resultado);
 }
 
-// Función para validar si es un número válido
 function esNumeroValido(valor) {
   return !isNaN(parseFloat(valor)) && isFinite(valor);
 }
 
-// Llamo a la función principal
-main();
-
+window.onload = function () {
+  main();
+};
